@@ -17,7 +17,6 @@ if __name__ == "__main__":
 
     # Create a DataFrame of reference signs (name: str, model: SignModel, distance: int)
     reference_signs = load_reference_signs(videos)
-    print("Here:", reference_signs)
 
     # Object that stores mediapipe results and computes sign similarities
     sign_recorder = SignRecorder(reference_signs)
@@ -25,7 +24,6 @@ if __name__ == "__main__":
     # Object that draws keypoints & displays results
     webcam_manager = WebcamManager()
 
-    video_path = "/Users/ruhiprasad/CalPoly/CSC480/FiveFingers/data/videos/-O/-<video_of_O_1>.mp4"
     # Turn on the webcam
     # cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     cap = cv2.VideoCapture(0)

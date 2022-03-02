@@ -15,7 +15,7 @@ def load_dataset():
     #             print(root)
     #             videos.append(root.split("-")[1] + file_name.replace(".mp4", ""))
     videos = [
-        root.split("-")[1] + file_name.replace(".mp4", "")
+        file_name.replace(".mp4", "")
         for root, dirs, files in os.walk(os.path.join("data", "videos"))
         for file_name in files
         if file_name.endswith(".mp4")
@@ -45,7 +45,6 @@ def load_reference_signs(videos):
     for video_name in videos:
 
         sign_name = video_name.split("-")[0]
-        print(video_name)
         path = os.path.join("data", "dataset", sign_name, video_name)
 
         left_hand_list = load_array(os.path.join(path, f"lh_{video_name}.pickle"))

@@ -38,6 +38,8 @@ def extract_landmarks(results):
 def save_landmarks_from_video(video_name):
     landmark_list = {"pose": [], "left_hand": [], "right_hand": []}
     sign_name = video_name.split("-")[0]
+    print(sign_name)
+    print(video_name)
 
     # Set the Video stream
     cap = cv2.VideoCapture(
