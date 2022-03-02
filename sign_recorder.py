@@ -25,8 +25,9 @@ class SignRecorder(object):
         """
         self.reference_signs["distance"].values[:] = 0
         self.is_recording = True
+        print("went here")
 
-    def process_results(self, results) -> (str, bool):
+    def process_results(self, results):
         """
         If the SignRecorder is in the recording state:
             it stores the landmarks during seq_len frames and then computes the sign distances
@@ -34,12 +35,14 @@ class SignRecorder(object):
         :return: Return the word predicted (blank text if there is no distances)
                 & the recording state
         """
-        if self.is_recording:
-            if len(self.recorded_results) < self.seq_len:
-                self.recorded_results.append(results)
-            else:
-                self.compute_distances()
-                print(self.reference_signs)
+        self.reference_signs["distance"].values[:] = 0
+
+        # if self.is_recording:
+        if len(self.recorded_results) < self.seq_len:
+            self.recorded_results.append(results)
+        else:
+            self.compute_distances()
+            print(self.reference_signs)
 
         if np.sum(self.reference_signs["distance"].values) == 0:
             return "", self.is_recording

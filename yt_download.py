@@ -4,6 +4,9 @@ import os
 from shutil import copyfile
 import pandas as pd
 from tqdm import tqdm
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 FOLDER = os.path.join("data", "videos")
 

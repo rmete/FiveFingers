@@ -8,8 +8,14 @@ from utils.landmark_utils import save_landmarks_from_video, load_array
 
 
 def load_dataset():
+    # videos = []
+    # for root, dirs, files in os.walk(os.path.join("data", "videos")):
+    #     for file_name in files:
+    #         if file_name.endswith(".mp4"):
+    #             print(root)
+    #             videos.append(root.split("-")[1] + file_name.replace(".mp4", ""))
     videos = [
-        file_name.replace(".mp4", "")
+        root.split("-")[1] + file_name.replace(".mp4", "")
         for root, dirs, files in os.walk(os.path.join("data", "videos"))
         for file_name in files
         if file_name.endswith(".mp4")
@@ -20,6 +26,7 @@ def load_dataset():
         for file_name in files
         if file_name.endswith(".pickle") and file_name.startswith("pose_")
     ]
+    print(videos)
 
     # Create the dataset from the reference videos
     videos_not_in_dataset = list(set(videos).difference(set(dataset)))
@@ -36,7 +43,9 @@ def load_dataset():
 def load_reference_signs(videos):
     reference_signs = pd.DataFrame(columns=["name", "sign_model", "distance"])
     for video_name in videos:
+
         sign_name = video_name.split("-")[0]
+        print(video_name)
         path = os.path.join("data", "dataset", sign_name, video_name)
 
         left_hand_list = load_array(os.path.join(path, f"lh_{video_name}.pickle"))
@@ -53,4 +62,5 @@ def load_reference_signs(videos):
     print(
         f'Dictionary count: {reference_signs[["name", "sign_model"]].groupby(["name"]).count()}'
     )
+    print(reference_signs)
     return reference_signs
