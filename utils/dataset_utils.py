@@ -1,3 +1,4 @@
+from operator import index
 import os
 
 import pandas as pd
@@ -50,13 +51,12 @@ def load_reference_signs(videos):
         left_hand_list = load_array(os.path.join(path, f"lh_{video_name}.pickle"))
         right_hand_list = load_array(os.path.join(path, f"rh_{video_name}.pickle"))
 
-        reference_signs = reference_signs.append(
+        reference_signs = pd.concat((reference_signs, pd.DataFrame(
             {
                 "name": sign_name,
                 "sign_model": SignModel(left_hand_list, right_hand_list),
                 "distance": 0,
-            },
-            ignore_index=True,
+            }, index=("name", "sign_model", "distance"))), axis = 0
         )
     print(
         f'Dictionary count: {reference_signs[["name", "sign_model"]].groupby(["name"]).count()}'

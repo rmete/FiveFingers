@@ -32,7 +32,7 @@ if __name__ == "__main__":
         min_detection_confidence=0.5, min_tracking_confidence=0.5
     ) as holistic:
         while True:
-            print("True")
+            #print("True")
 
             # Read feed
             ret, frame = cap.read()

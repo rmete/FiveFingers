@@ -21,7 +21,7 @@ def download_video(name, video_id, start_time, duration_time):
 
     video = (
         YouTube(f"https://www.youtube.com/watch?v={video_id}")
-        .streams.filter(file_extension="mp4")
+        .streams.filter(res="480p", file_extension="mp4")
         .first()
     )
     file_name = re.sub(r"[.;:,?!]", "", video.title) + ".mp4"
