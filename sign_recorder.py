@@ -25,7 +25,6 @@ class SignRecorder(object):
         """
         self.reference_signs["distance"].values[:] = 0
         self.is_recording = True
-        print("went here")
 
     def process_results(self, results):
         """
@@ -37,12 +36,12 @@ class SignRecorder(object):
         """
         self.reference_signs["distance"].values[:] = 0
 
-        # if self.is_recording:
-        if len(self.recorded_results) < self.seq_len:
-            self.recorded_results.append(results)
-        else:
-            self.compute_distances()
-            print(self.reference_signs)
+        if self.is_recording:
+            if len(self.recorded_results) < self.seq_len:
+                self.recorded_results.append(results)
+            else:
+                self.compute_distances()
+                print(self.reference_signs)
 
         if np.sum(self.reference_signs["distance"].values) == 0:
             return "", self.is_recording
@@ -69,7 +68,7 @@ class SignRecorder(object):
         self.recorded_results = []
         self.is_recording = False
 
-    def _get_sign_predicted(self, batch_size=2, threshold=0.5):
+    def _get_sign_predicted(self, batch_size=3, threshold=0.5):
         """
         Method that outputs the sign that appears the most in the list of closest
         reference signs, only if its proportion within the batch is greater than the threshold
@@ -89,5 +88,5 @@ class SignRecorder(object):
 
         predicted_sign, count = sign_counter[0]
         if count / batch_size < threshold:
-            return "Signe inconnu"
+            return "Unrecognized sign"
         return predicted_sign

@@ -8,12 +8,6 @@ from utils.landmark_utils import save_landmarks_from_video, load_array
 
 
 def load_dataset():
-    # videos = []
-    # for root, dirs, files in os.walk(os.path.join("data", "videos")):
-    #     for file_name in files:
-    #         if file_name.endswith(".mp4"):
-    #             print(root)
-    #             videos.append(root.split("-")[1] + file_name.replace(".mp4", ""))
     videos = [
         file_name.replace(".mp4", "")
         for root, dirs, files in os.walk(os.path.join("data", "videos"))

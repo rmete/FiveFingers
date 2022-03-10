@@ -31,9 +31,7 @@ if __name__ == "__main__":
     with mp.solutions.holistic.Holistic(
         min_detection_confidence=0.5, min_tracking_confidence=0.5
     ) as holistic:
-        while True:
-            print("True")
-
+        while cap.isOpened():
             # Read feed
             ret, frame = cap.read()
             if not ret:
@@ -48,7 +46,6 @@ if __name__ == "__main__":
             # cv2.imshow("MediaPipe Holistic", cv2.flip(image, 1))
             # Process results
             sign_detected, is_recording = sign_recorder.process_results(results)
-            print(sign_detected)
 
             # Update the frame (draw landmarks & display result)
             webcam_manager.update(frame, results, sign_detected, is_recording)
@@ -56,7 +53,6 @@ if __name__ == "__main__":
             pressedKey = cv2.waitKey(1) & 0xFF
             if pressedKey == ord("r"):  # Record pressing r
                 sign_recorder.record()
-                print("in here")
             elif pressedKey == ord("q"):  # Break pressing q
                 break
 
